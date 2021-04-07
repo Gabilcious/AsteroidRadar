@@ -15,6 +15,7 @@ class FetchAsteroidsWorker(appContext: Context, params: WorkerParameters) :
     override suspend fun doWork(): Result {
         val database = AsteroidDatabase.getInstance(applicationContext).asteroidDatabaseDao
         return try {
+            database.clearPast()
             val result = NasaApi.retrofitService.getAsteroids()
             val asteroids = parseAsteroidsJsonResult(JSONObject(result))
             database.insertAsteroids(asteroids)
