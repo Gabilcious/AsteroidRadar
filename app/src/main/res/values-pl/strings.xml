@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Radar Asteroid</string>
+
+    <string name="close_approach_data_title">Data bliskiego zbliżenia</string>
+    <string name="absolute_magnitude_title">Wielkość absolutna</string>
+    <string name="estimated_diameter_title">Oczekiwana średnica</string>
+    <string name="relative_velocity_title">Prędkość względna</string>
+    <string name="distance_from_earth_title">Odległość od Ziemi</string>
+    <string name="astronomical_unit_format">%f au</string>
+    <string name="km_unit_format">%f km</string>
+    <string name="km_s_unit_format">%f km/s</string>
+    <string name="image_of_the_day">Obraz dnia</string>
+    <string name="astronomica_unit_explanation">Jednostka astronomiczna (au) jest jednostką długości, w przybliżeniu równa odległości z Ziemi do Słońca, równa około 150 milioów kilometrów (93 milionów mil)</string>
+    <string name="astronomical_unit_explanation_button">Definicja jednostki astronomicznej</string>
+    <string name="potentially_hazardous_asteroid_image">Obrazek potencjalnie niebezpiecznej asteroidy</string>
+    <string name="not_hazardous_asteroid_image">Obrazek bezpiecznej asteroidy</string>
+    <string name="nasa_picture_of_day_content_description_format">Obraz dnia od NASA: %s</string>
+</resources>
