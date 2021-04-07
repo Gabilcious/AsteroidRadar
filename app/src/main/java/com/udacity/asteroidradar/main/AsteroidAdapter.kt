@@ -1,6 +1,5 @@
 package com.udacity.asteroidradar.main
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,6 @@ import com.udacity.asteroidradar.databinding.ListItemAsteroidBinding
 class AsteroidAdapter(val clickListener: AsteroidListener) : RecyclerView.Adapter<AsteroidAdapter.AsteroidViewHolder>() {
     var data = listOf<Asteroid>()
         set(value) {
-            Log.d("AAAA", value.size.toString())
             field = value
             notifyDataSetChanged()
         }
