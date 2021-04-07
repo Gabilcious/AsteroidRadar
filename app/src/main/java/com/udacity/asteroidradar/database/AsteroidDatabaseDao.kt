@@ -18,7 +18,7 @@ interface AsteroidDatabaseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAsteroids(asteroids: ArrayList<Asteroid>)
 
-    @Query("SELECT * FROM asteroid_table WHERE close_approach_date = :date")
+    @Query("SELECT * FROM asteroid_table WHERE close_approach_date >= :date ORDER BY close_approach_date")
     fun getAsteroids(date: String = today()): LiveData<List<Asteroid>>
 
     @Query("DELETE FROM asteroid_table")
