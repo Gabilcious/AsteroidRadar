@@ -6,15 +6,10 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.Constants
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import com.udacity.asteroidradar.api.today
 
 @Dao
 interface AsteroidDatabaseDao {
-    private fun today() = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault()).format(Calendar.getInstance().time)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAsteroids(asteroids: ArrayList<Asteroid>)
 

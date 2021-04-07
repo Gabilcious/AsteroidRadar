@@ -6,16 +6,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.NasaApi
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
 import com.udacity.asteroidradar.database.AsteroidDatabaseDao
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class MainViewModel(
     val database: AsteroidDatabaseDao,
@@ -32,16 +28,11 @@ class MainViewModel(
     val navigateToAsteroidDetail
         get() = _navigateToAsteroidDetail
 
-    private fun today() = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault()).format(Calendar.getInstance().time)
-
     init {
         init()
     }
 
     private fun init() {
-        viewModelScope.launch {
-            database.clear()
-        }
         getPictureOfDay()
         getAsteroids()
     }
@@ -57,7 +48,7 @@ class MainViewModel(
     private fun getAsteroids() {
         viewModelScope.launch {
             try {
-                val result = NasaApi.retrofitService.getAsteroids(today())
+                val result = NasaApi.retrofitService.getAsteroids()
                 val asteroids = parseAsteroidsJsonResult(JSONObject(result))
                 database.insertAsteroids(asteroids)
             } catch (e: Exception) {
