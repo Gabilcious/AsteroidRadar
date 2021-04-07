@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.NasaApi
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
 import com.udacity.asteroidradar.database.AsteroidDatabaseDao
@@ -23,6 +24,10 @@ class MainViewModel(
 
     var asteroids = database.getAsteroids()
 
+    private val _pictureOfDay = MutableLiveData<PictureOfDay>()
+    val pictureOfDay
+        get() = _pictureOfDay
+
     private val _navigateToAsteroidDetail = MutableLiveData<Asteroid>()
     val navigateToAsteroidDetail
         get() = _navigateToAsteroidDetail
@@ -36,8 +41,9 @@ class MainViewModel(
     private fun init() {
         viewModelScope.launch {
             database.clear()
-            getAsteroids()
         }
+        getPictureOfDay()
+        getAsteroids()
     }
 
     fun onAsteroidClicked(asteroid: Asteroid) {
@@ -57,6 +63,20 @@ class MainViewModel(
             } catch (e: Exception) {
                 Log.d("NasaApiService", "Failure: " + e.message)
                 getAsteroids()
+            }
+        }
+    }
+
+    private fun getPictureOfDay() {
+        viewModelScope.launch {
+            try {
+                val result = NasaApi.retrofitService.getPictureOfDay()
+                if (result.mediaType == "image") {
+                    _pictureOfDay.value = result
+                }
+            } catch (e: Exception) {
+                Log.d("NasaApiService", "Failure: " + e.message)
+                getPictureOfDay()
             }
         }
     }
